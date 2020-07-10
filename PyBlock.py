@@ -1,6 +1,6 @@
 #Developer: Curly60e
 #PyBLOCK its a clock of the Bitcoin blockchain.
-#Version: 0.5.0
+#Version: 0.6.0b
 
 import os
 import os.path
@@ -17,11 +17,20 @@ from donation import *
 from feed import *
 from art import *
 from logos import *
+from sysinf import *
 from pblogo import *
 from apisnd import *
 from ppi import *
 from nodeconnection import *
 from terminal_matrix.matrix import *
+
+
+
+def sysinfo():  #Cpu and memory usage
+    print("   \033[0;37;40m----------------------")
+    print("   \033[3;33;40mCPU Usage: \033[1;32;40m" + str(psutil.cpu_percent()) + "%\033[0;37;40m")
+    print("   \033[3;33;40mMemory Usage: \033[1;32;40m" "{}% \033[0;37;40m".format(int(psutil.virtual_memory().percent)))
+    print("   \033[0;37;40m----------------------")
 
 
 
@@ -36,7 +45,7 @@ def getblock(): # get access to bitcoin-cli with the command getblockchaininfo
     blogo()
     print("\033[0;37;40m")
     print("<<< Back to the Main Menu Press Control + C.\n\n")
-    print("\n-------------------------------------------------")
+    print("\n----------------------------------------------------------------------------------------------------")
     print("""
     Chain: {}
     Blocks: {}
@@ -46,7 +55,7 @@ def getblock(): # get access to bitcoin-cli with the command getblockchaininfo
     Size on Disk: {}
     Pruned: {}
     """.format(d['chain'], d['blocks'], d['bestblockhash'], d['difficulty'], d['verificationprogress'], d['size_on_disk'], d['pruned']))
-    print("--------------------------------------------------\n")
+    print("----------------------------------------------------------------------------------------------------\n")
 
 def getblockcount(): # get access to bitcoin-cli with the command getblockcount
     bitcoincli = " getblockcount"
@@ -183,9 +192,9 @@ def menu(): #Main Menu
     prt()
     sysinfo()
     print("""\t\t
-    \033[1;31;40mPyBLOCK Termux\033[0;37;40m Menu
+    \033[1;31;40mPyBLOCK\033[0;37;40m Menu
     Local Node
-    Version 0.5.0
+    Version 0.6.0b
 
     \033[1;31;40mA.\033[0;37;40m Run PyBLOCK
     \033[1;32;40mB.\033[0;37;40m Show Blockchain information
@@ -205,10 +214,11 @@ def menu(): #Main Menu
 def menuUserConn(): #Menu before connection over ssh
     clear()
     prt()
+    sysinfo()
     print("""\t\t
-    \033[1;31;40mPyBLOCK Termux\033[0;37;40m Menu
+    \033[1;31;40mPyBLOCK\033[0;37;40m Menu
     Remote Node RPC
-    Version 0.5.0
+    Version 0.6.0b
 
     \033[1;31;40mA.\033[0;37;40m Run PyBLOCK
     \033[1;32;40mB.\033[0;37;40m Show Blockchain information
@@ -224,9 +234,10 @@ def menuUserConn(): #Menu before connection over ssh
 def advanceMenu(): # Advanced Menu
     clear()
     prt()
+    sysinfo()
     print("""\t\t
-    \033[1;31;40mPyBLOCK Termux\033[0;37;40m Menu
-    Version 0.5.0
+    \033[1;31;40mPyBLOCK\033[0;37;40m Menu
+    Version 0.6.0b
 
     \033[1;32;40mA.\033[0;37;40m Bitconi-cli Console
     \033[1;32;40mB.\033[0;37;40m FunB
@@ -239,13 +250,15 @@ def advanceMenu(): # Advanced Menu
 def remoteadvanceMenu(): # Advanced Menu
     clear()
     prt()
+    sysinfo()
     print("""\t\t
-    \033[1;31;40mPyBLOCK Termux\033[0;37;40m Menu
-    Version 0.5.0
+    \033[1;31;40mPyBLOCK\033[0;37;40m Menu
+    Version 0.6.0b
 
     \033[1;32;40mA.\033[0;37;40m Bitconi-cli Console
     \033[1;32;40mB.\033[0;37;40m FunB
     \033[1;32;40mC.\033[0;37;40m Show QR from a Bitcoin Address
+    \033[1;32;40mS.\033[0;37;40m Sysinfo
     \033[1;36;40mR.\033[0;37;40m Return Main Menu
     \n\n""")
     menuBA(input("\033[1;32;40mSelect option: \033[0;37;40m"))
@@ -253,9 +266,10 @@ def remoteadvanceMenu(): # Advanced Menu
 def dnt(): # Donation selection menu
     clear()
     prt()
+    sysinfo()
     print("""\t\t
-    \033[1;31;40mPyBLOCK Termux\033[0;37;40m Menu
-    Version 0.5.0
+    \033[1;31;40mPyBLOCK\033[0;37;40m Menu
+    Version 0.6.0b
 
     \033[1;32;40mA.\033[0;37;40m Developers Donation
     \033[1;32;40mB.\033[0;37;40m Testers Donation
@@ -266,9 +280,10 @@ def dnt(): # Donation selection menu
 def dntDev(): # Dev Donation Menu
     clear()
     prt()
+    sysinfo()
     print("""\t\t
-    \033[1;31;40mPyBLOCK Termux\033[0;37;40m Menu
-    Version 0.5.0
+    \033[1;31;40mPyBLOCK\033[0;37;40m Menu
+    Version 0.6.0b
 
     \033[1;32;40mA.\033[0;37;40m PayNym
     \033[1;32;40mB.\033[0;37;40m Bitcoin Address
@@ -280,9 +295,10 @@ def dntDev(): # Dev Donation Menu
 def dntTst(): # Tester Donation Menu
     clear()
     prt()
+    sysinfo()
     print("""\t\t
-    \033[1;31;40mPyBLOCK Termux\033[0;37;40m Menu
-    Version 0.5.0
+    \033[1;31;40mPyBLOCK\033[0;37;40m Menu
+    Version 0.6.0b
 
     \033[1;32;40mA.\033[0;37;40m Bitcoin Address
     \033[1;32;40mB.\033[0;37;40m Lightning Network
@@ -293,9 +309,10 @@ def dntTst(): # Tester Donation Menu
 def satnodeMenu(): # Satnode Menu
     clear()
     prt()
+    sysinfo()
     print("""\t\t
-    \033[1;31;40mPyBLOCK Termux\033[0;37;40m Menu
-    Version 0.4.0
+    \033[1;31;40mPyBLOCK\033[0;37;40m Menu
+    Version 0.6.0b
 
     \033[1;32;40mA.\033[0;37;40m Start SatNode
     \033[1;32;40mB.\033[0;37;40m Feed
@@ -308,10 +325,11 @@ def satnodeMenu(): # Satnode Menu
 def menuLND():
     clear()
     prt()
+    sysinfo()
     print("""\t\t
-    \033[1;31;40mPyBLOCK Termux\033[0;37;40m Lightning Network Menu
+    \033[1;31;40mPyBLOCK\033[0;37;40m Lightning Network Menu
     Remote node connection
-    Version 0.5.0
+    Version 0.6.0b
 
     \033[1;32;40mI.\033[0;37;40m New Invoice
     \033[1;31;40mP.\033[0;37;40m Pay Invoice
@@ -329,10 +347,11 @@ def menuLND():
 def menuLNDLOCAL():
     clear()
     prt()
+    sysinfo()
     print("""\t\t
-    \033[1;31;40mPyBLOCK Termux\033[0;37;40m Lightning Network Menu
+    \033[1;31;40mPyBLOCK\033[0;37;40m Lightning Network Menu
     Local node connection
-    Version 0.5.0
+    Version 0.6.0b
 
     \033[1;32;40mI.\033[0;37;40m New Invoice
     \033[1;31;40mP.\033[0;37;40m Pay Invoice
@@ -353,14 +372,16 @@ def menuLNDLOCAL():
 def APIMenu():
     clear()
     prt()
+    sysinfo()
     print("""\t\t
-    \033[1;31;40mPyBLOCK Termux\033[0;37;40m API \033[1;34;40mPremium\033[0;37;40m Menu
-    Version 0.5.0
+    \033[1;31;40mPyBLOCK\033[0;37;40m API \033[1;34;40mPremium\033[0;37;40m Menu
+    Version 0.6.0b
 
     \033[1;32;40mA.\033[0;37;40m TippinMe FREE
-    \033[1;32;40mB.\033[0;37;40m LNBits   \033[3;35;40m{lnbitspaid}\033[0;37;40m
-    \033[1;32;40mC.\033[0;37;40m LNPay    \033[3;35;40m{lnpaypaid}\033[0;37;40m
-    \033[1;32;40mD.\033[0;37;40m OpenNode \033[3;35;40m{opennodepaid}\033[0;37;40m
+    \033[1;32;40mB.\033[0;37;40m TallyCo  FREE
+    \033[1;32;40mC.\033[0;37;40m LNBits   \033[3;35;40m{lnbitspaid}\033[0;37;40m
+    \033[1;32;40mD.\033[0;37;40m LNPay    \033[3;35;40m{lnpaypaid}\033[0;37;40m
+    \033[1;32;40mE.\033[0;37;40m OpenNode \033[3;35;40m{opennodepaid}\033[0;37;40m
     \033[1;36;40mR.\033[0;37;40m Return Main Menu
     \n\n""".format(lnbitspaid = "PAID" if os.path.isfile("lnbitSN.conf") else "PREMIUM", lnpaypaid = "PAID" if os.path.isfile("lnpaySN.conf") else "PREMIUM", opennodepaid = "PAID" if os.path.isfile("opennodeSN.conf") else "PREMIUM"))
     menuPI(input("\033[1;32;40mSelect option: \033[0;37;40m"))
@@ -372,9 +393,10 @@ def APILnbit():
         bitLN = bitData # Copy the variable pathv to 'path'
     clear()
     prt()
+    sysinfo()
     print("""\t\t
-    \033[1;31;40mPyBLOCK Termux\033[0;37;40m LNBits SN:{} \033[1;34;40mPremium\033[0;37;40m Menu
-    Version 0.5.0
+    \033[1;31;40mPyBLOCK\033[0;37;40m LNBits SN:{} \033[1;34;40mPremium\033[0;37;40m Menu
+    Version 0.6.0b
 
     \033[1;32;40mA.\033[0;37;40m New Invoice
     \033[1;32;40mB.\033[0;37;40m Pay Invoice
@@ -392,9 +414,10 @@ def APILnPay():
         bitLN = bitData # Copy the variable pathv to 'path'
     clear()
     prt()
+    sysinfo()
     print("""\t\t
-    \033[1;31;40mPyBLOCK Termux\033[0;37;40m LNPay SN:{} \033[1;34;40mPremium\033[0;37;40m Menu
-    Version 0.5.0
+    \033[1;31;40mPyBLOCK\033[0;37;40m LNPay SN:{} \033[1;34;40mPremium\033[0;37;40m Menu
+    Version 0.6.0b
 
     \033[1;32;40mA.\033[0;37;40m New Invoice
     \033[1;32;40mB.\033[0;37;40m Pay Invoice
@@ -412,9 +435,10 @@ def APIOpenNode():
         bitLN = bitData # Copy the variable pathv to 'path'
     clear()
     prt()
+    sysinfo()
     print("""\t\t
-    \033[1;31;40mPyBLOCK Termux\033[0;37;40m OpenNode SN:{} \033[1;34;40mPremium\033[0;37;40m Menu
-    Version 0.5.0
+    \033[1;31;40mPyBLOCK\033[0;37;40m OpenNode SN:{} \033[1;34;40mPremium\033[0;37;40m Menu
+    Version 0.6.0b
 
     \033[1;32;40mA.\033[0;37;40m New Invoice
     \033[1;32;40mB.\033[0;37;40m Pay Invoice
@@ -428,14 +452,29 @@ def APIOpenNode():
 def APITippinMe():
     clear()
     prt()
+    sysinfo()
     print("""\t\t
-    \033[1;31;40mPyBLOCK Termux\033[0;37;40m TippinMe \033[1;34;40mFree\033[0;37;40m Menu
-    Version 0.5.0
+    \033[1;31;40mPyBLOCK\033[0;37;40m TippinMe \033[1;34;40mFree\033[0;37;40m Menu
+    Version 0.6.0b
 
     \033[1;32;40mA.\033[0;37;40m New Invoice
     \033[1;36;40mR.\033[0;37;40m Return Main Menu
     \n\n""")
     menuTippinMe(input("\033[1;32;40mSelect option: \033[0;37;40m"))
+
+def APITallyCo():
+    clear()
+    prt()
+    sysinfo()
+    print("""\t\t
+    \033[1;31;40mPyBLOCK\033[0;37;40m TallyCoin \033[1;34;40mFree\033[0;37;40m Menu
+    Version 0.6.0b
+
+    \033[1;32;40mA.\033[0;37;40m Get Payment
+    \033[1;32;40mB.\033[0;37;40m Pay Fundraiser
+    \033[1;36;40mR.\033[0;37;40m Return Main Menu
+    \n\n""")
+    menuTallyCo(input("\033[1;32;40mSelect option: \033[0;37;40m"))
 
 def menuSelection():
     path = {"ip_port":"", "rpcuser":"", "rpcpass":"", "bitcoincli":""}
@@ -624,13 +663,16 @@ def aaccPPiOpenNode():
         input("Continue...")
 
 def aaccPPiTippinMe():
-    bitLN = {"NN":"","pd":""}
     if os.path.isfile('tippinme.conf'): # Check if the file 'bclock.conf' is in the same folder
-        bitData= pickle.load(open("tippinme.conf", "rb")) # Load the file 'bclock.conf'
-        bitLN = bitData # Copy the variable pathv to 'path'
         APITippinMe()
     else:
         createFileTippinMe()
+
+def aaccPPiTallyCo():
+    if os.path.isfile('tallyco.conf'): # Check if the file 'bclock.conf' is in the same folder
+        APITallyCo()
+    else:
+        createFileConnTallyCo()
 #--------------------------------- End Menu section -----------------------------------
 #--------------------------------- Main Menu execution --------------------------------
 
@@ -638,11 +680,21 @@ def menuPI(menuWN):
     if menuWN in ["A", "a"]:
         aaccPPiTippinMe()
     elif menuWN in ["B", "b"]:
-        aaccPPiLNBits()
+        aaccPPiTallyCo()
     elif menuWN in ["C", "c"]:
-        aaccPPiLNPay()
+        aaccPPiLNBits()
     elif menuWN in ["D", "d"]:
+        aaccPPiLNPay()
+    elif menuWN in ["E", "e"]:
         aaccPPiOpenNode()
+
+def menuTallyCo(menuTLC):
+    if menuTLC in ["A", "a"]:
+        tallycoGetPayment()
+    elif menuTLC in ["B", "b"]:
+        tallycoDonateid()
+    elif menuTLC in ["R", "r"]:
+        APIMenu()
 
 def menuTippinMe(menuTM):
     if menuTM in ["A", "a"]:
@@ -1017,6 +1069,17 @@ def menuB(menuR): # Advanced access Menu
                 close()
                 logoC()
                 tmp()
+            except:
+                break
+    elif menuR in ["C", "c"]:
+        while True:
+            try:
+                clear()
+                prt()
+                sysinfo()
+                close()
+                decodeQR()
+                t.sleep(50)
             except:
                 break
     elif menuR in ["S", "s"]:
