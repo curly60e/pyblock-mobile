@@ -100,8 +100,12 @@ def countdownblockConn():
     except:
         menuSelection()
 
-#--------------------------------- End Hex Block Decoder Functions -------------------------------------
-
+#---------------------------------Warden Terminal----------------------------------
+def callGitWardenTerminal():
+    if not os.path.isdir('warden_terminal'):
+        git = "git clone https://github.com/pxsocs/warden_terminal.git"
+        os.system(git)
+    os.system("cd warden_terminal && python3 node_warden.py")
 #--------------------------------- Menu section -----------------------------------
 
 def menuUserConn(): #Menu before connection over ssh
@@ -996,7 +1000,6 @@ def bitcoincoremenuREMOTEcontrol(bcore):
                 t.sleep(5)
             except:
                 break
-                menuSelection()
     elif bcore in ["B", "b"]:
         remotegetblockcount()
     elif bcore in ["C", "c"]:
