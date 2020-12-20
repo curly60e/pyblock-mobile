@@ -21,6 +21,335 @@ from lnpay_py.wallet import LNPayWallet
 def clear(): # clear the screen
     os.system('cls' if os.name=='nt' else 'clear')
 
+def closed():
+    print("<<< Back Control + C.\n\n")
+
+def gameroom():
+    try:
+        clear()
+        blogo()
+        print("""
+        --------------------------------------
+
+                  INITIATE ARCADE?
+
+        --------------------------------------
+        """.format(closed()))
+        input("\a\nContinue...")
+        conn = "ssh gameroom@bitreich.org"
+        os.system(conn).read()
+    except:
+        pass
+#----------------------------------------------------------------------
+
+def trustednode():
+    try:
+        clear()
+        blogo()
+        closed()
+        addv = """
+        ---------------------------------------------------------------
+
+                    REMEMBER TO INITIALIZE \033[1;35;40mTOR\033[0;37;40m ON THE SHELL
+
+                            $ source torsocks on
+
+        ---------------------------------------------------------------
+
+        """
+        print(addv)
+        input("\a\nContinue...")
+        conn = "telnet cut45oarvxfvfydrjery6slyeca4zpal7tljygdt5bji7l3jsrrgwkad.onion 6023"
+        os.system(conn)
+    except:
+        pass
+#-----------------------------END GAMES--------------------------------
+#-----------------------------bwt.dev--------------------------------
+
+def bwtConn():
+    try:
+        clear()
+        blogo()
+        closed()
+        conn = "curl -s https://bwt.dev/banner.txt"
+        a = os.popen(conn).read()
+        clear()
+        blogo()
+        closed()
+        print(a)
+        input("\a\nContinue...")
+    except:
+        pass
+
+#-----------------------------END bwt.dev--------------------------------
+
+#-----------------------------wttr.in--------------------------------
+def wttrDataV1():
+    try:
+        clear()
+        blogo()
+        weatherList = """
+        ------------------------------------------------------------------------------------
+
+
+
+            \033[1;31;40m*\033[0;37;40m uruguay                # city name
+            \033[1;31;40m*\033[0;37;40m ~Giza+pyramid          # any location (+ for spaces)
+            \033[1;31;40m*\033[0;37;40m Москва                 # Unicode name of any location in any language
+            \033[1;31;40m*\033[0;37;40m muc                    # airport code (3 letters)
+            \033[1;31;40m*\033[0;37;40m @lightninghood.com     # domain name
+            \033[1;31;40m*\033[0;37;40m 94107                  # area codes
+            \033[1;31;40m*\033[0;37;40m -78.46,106.79          # GPS coordinates
+            \033[1;31;40m*\033[0;37;40m moon                   # Moon phase (add ,+US or ,+France for these cities)
+            \033[1;31;40m*\033[0;37;40m moon@2009-01-03        # Moon phase for the date (@2016-10-25)
+
+            PRESS \033[1;32;40mM\033[0;37;40m TO INSERT MORE DATA
+
+        ------------------------------------------------------------------------------------
+
+        """
+        print(weatherList)
+        selectData = input("Insert your data \033[1;31;40m*\033[0;37;40m : ")
+        if selectData in ['M', 'm']:
+            moreData = """
+
+        ------------------------------------------------------------------------------------
+                                        Supported languages
+
+                        ar af be ca da de el es et fr fa hi hu ia id it nb nl
+                        oc pl pt-br ro ru tr th uk vi zh-cn zh-tw (supported)
+
+        ------------------------------------------------------------------------------------
+        ------------------------------------------------------------------------------------
+                                             Units
+
+                    m        # metric (SI) (used by default everywhere except US)
+                    u        # USCS (used by default in US)
+                    M        # show wind speed in m/s
+
+        ------------------------------------------------------------------------------------
+            """
+            print(moreData)
+            selectData2 = input("Insert your data \033[1;31;40m*\033[0;37;40m : ")
+            lang = input("Insert your language: ")
+            unit = input("Insert your metric units: ")
+            list = "curl '" + lang + ".wttr.in/" + selectData2 + "?F&" + unit + "'"
+        else:
+            list = "curl wttr.in/" + selectData + "?F"
+        a = os.popen(list).read()
+        clear()
+        blogo()
+        print(a)
+        input("Continue...")
+    except:
+        pass
+
+def wttrDataV2():
+    try:
+        clear()
+        blogo()
+        weatherList = """
+        ------------------------------------------------------------------------------------
+
+
+
+            \033[1;31;40m*\033[0;37;40m uruguay                # city name
+            \033[1;31;40m*\033[0;37;40m ~Giza+pyramid          # any location (+ for spaces)
+            \033[1;31;40m*\033[0;37;40m Москва                 # Unicode name of any location in any language
+            \033[1;31;40m*\033[0;37;40m muc                    # airport code (3 letters)
+            \033[1;31;40m*\033[0;37;40m @lightninghood.com     # domain name
+            \033[1;31;40m*\033[0;37;40m 94107                  # area codes
+            \033[1;31;40m*\033[0;37;40m -78.46,106.79          # GPS coordinates
+
+            PRESS \033[1;32;40mM\033[0;37;40m TO INSERT MORE DATA
+
+        ------------------------------------------------------------------------------------
+
+        """
+        print(weatherList)
+        selectData = input("Insert your data \033[1;31;40m*\033[0;37;40m : ")
+        if selectData in ['M', 'm']:
+            moreData = """
+
+        ------------------------------------------------------------------------------------
+                                        Supported languages
+
+                        ar af be ca da de el es et fr fa hi hu ia id it nb nl
+                        oc pl pt-br ro ru tr th uk vi zh-cn zh-tw (supported)
+
+        ------------------------------------------------------------------------------------
+        ------------------------------------------------------------------------------------
+                                             Units
+
+                    m        # metric (SI) (used by default everywhere except US)
+                    u        # USCS (used by default in US)
+                    M        # show wind speed in m/s
+
+        ------------------------------------------------------------------------------------
+            """
+            print(moreData)
+            selectData2 = input("Insert your data \033[1;31;40m*\033[0;37;40m : ")
+            lang = input("Insert your language: ")
+            unit = input("Insert your metric units: ")
+            list = "curl 'v2.wttr.in/" + selectData2 + "?" + unit + "&F&lang=" + lang + "'"
+
+        else:
+            list = "curl v2.wttr.in/" + selectData + "?F"
+        a = os.popen(list).read()
+        clear()
+        blogo()
+        print(a)
+        input("Continue...")
+    except:
+        pass
+
+
+#-----------------------------END wttr.in--------------------------------
+
+#-----------------------------RATE.SX--------------------------------
+
+def rateSXList():
+    clear()
+    blogo()
+    fiat = """
+            -------------------------------------------
+                    AUD    Australian dollar
+                    BRL    Brazilian real
+                    CAD    Canadian dollar
+                    CHF    Swiss franc
+                    CLP    Chilean peso
+                    CNY    Chinese yuan
+                    CZK    Czech koruna
+                    DKK    Danish krone
+                    EUR    Euro
+                    GBP    Pound sterling
+                    HKD    Hong Kong dollar
+                    HUF    Hungarian forint
+                    IDR    Indonesian rupiah
+                    ILS    Israeli shekel
+                    INR    Indian rupee
+                    JPY    Japanese yen
+                    KRW    South Korean won
+                    MXN    Mexican peso
+                    MYR    Malaysian ringgit
+                    NOK    Norwegian krone
+                    NZD    New Zealand dollar
+                    PHP    Philippine peso
+                    PKR    Pakistani rupee
+                    PLN    Polish zloty
+                    RUB    Russian ruble
+                    SEK    Swedish krona
+                    SGD    Singapore dollar
+                    THB    Thai baht
+                    TRY    Turkish lira
+                    TWD    New Taiwan dollar
+            -------------------------------------------
+    """
+    print(fiat)
+    selectFiat = input("Insert a Fiat currency: ")
+    while True:
+        try:
+            list = "curl '" + selectFiat + ".rate.sx/?F&n=1'"
+            a = os.popen(list).read()
+            clear()
+            blogo()
+            closed()
+            print(a)
+            t.sleep(20)
+        except:
+            break
+
+def rateSXGraph():
+    clear()
+    blogo()
+    fiat = """
+            -------------------------------------------
+                    AUD    Australian dollar
+                    BRL    Brazilian real
+                    CAD    Canadian dollar
+                    CHF    Swiss franc
+                    CLP    Chilean peso
+                    CNY    Chinese yuan
+                    CZK    Czech koruna
+                    DKK    Danish krone
+                    EUR    Euro
+                    GBP    Pound sterling
+                    HKD    Hong Kong dollar
+                    HUF    Hungarian forint
+                    IDR    Indonesian rupiah
+                    ILS    Israeli shekel
+                    INR    Indian rupee
+                    JPY    Japanese yen
+                    KRW    South Korean won
+                    MXN    Mexican peso
+                    MYR    Malaysian ringgit
+                    NOK    Norwegian krone
+                    NZD    New Zealand dollar
+                    PHP    Philippine peso
+                    PKR    Pakistani rupee
+                    PLN    Polish zloty
+                    RUB    Russian ruble
+                    SEK    Swedish krona
+                    SGD    Singapore dollar
+                    THB    Thai baht
+                    TRY    Turkish lira
+                    TWD    New Taiwan dollar
+            -------------------------------------------
+    """
+    print(fiat)
+    selectFiat = input("Insert a Fiat currency: ")
+    while True:
+        try:
+            list = "curl " + selectFiat + ".rate.sx/btc"
+            a = os.popen(list).read()
+            clear()
+            blogo()
+            closed()
+            print(a)
+            t.sleep(20)
+        except:
+            break
+
+#-----------------------------END RATE.SX--------------------------------
+
+
+
+#-----------------------------COINGECKO--------------------------------
+
+def CoingeckoPP():
+    btcInfo = CoinGeckoAPI()
+    n = btcInfo.get_price(ids='bitcoin', vs_currencies='usd,eur,gbp,jpy,aud')
+    q = n['bitcoin']
+    usd = q['usd']
+    eur = q['eur']
+    gbp = q['gbp']
+    jpy = q['jpy']
+    aud = q['aud']
+
+
+    print("""
+    --------------------COINGECKO BITCOIN PRICE-----------------------
+
+                          1 BTC = {} USD
+                          1 BTC = {} EUR
+                          1 BTC = {} GBP
+                          1 BTC = {} JPY
+                          1 BTC = {} AUD
+
+    ------------------------------------------------------------------
+
+                              ...BUT...
+
+                            1 BTC = 1 BTC
+
+    ------------------------------------------------------------------
+    """.format(usd,eur,gbp,jpy,aud))
+    input("Continue...")
+
+#-----------------------------END COINGECKO--------------------------------
+
+
+
 #-----------------------------LNBITS--------------------------------
 
 def loadFileConnLNBits(lnbitLoad):
