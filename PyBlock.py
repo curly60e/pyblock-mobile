@@ -21,7 +21,6 @@ from donation import *
 from feed import *
 from art import *
 from logos import *
-from sysinf import *
 from pblogo import *
 from apisnd import *
 from ppi import *
@@ -29,7 +28,7 @@ from termcolor import colored, cprint
 from nodeconnection import *
 
 
-version = "0.9.2"
+version = "0.9.3"
 
 def rpc(method, params=[]):
     payload = json.dumps({
@@ -44,19 +43,11 @@ def rpc(method, params=[]):
         path = pathv # Copy the variable pathv to 'path'
     return requests.post(path['ip_port'], auth=(path['rpcuser'], path['rpcpass']), data=payload).json()['result']
 
-def getblockcount(): # get access to bitcoin-cli with the command getblockcount
-    bitcoincli = " getblockcount"
-    os.system(path['bitcoincli'] + bitcoincli)
-
 def clear(): # clear the screen
     os.system('cls' if os.name=='nt' else 'clear')
 
-def getgenesis(): # get and decode Genesis block
-    bitcoincli = " getblock 000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f 0 | xxd -r -p | hexyl -n 256"
-    os.system(path['bitcoincli'] + bitcoincli)
-
 def close():
-    print("<<< Back to the Main Menu Press Control + C.\n\n")
+    print("<<< Back Control + C.\n\n")
 
 def tmp():
     t.sleep(15)
@@ -205,6 +196,41 @@ def lightningnetworkREMOTE():
     \n\n""".format(a, alias['alias'], d['blocks'], version, checkupdate()))
     lightningnetworkREMOTEcontrol(input("\033[1;32;40mSelect option: \033[0;37;40m"))
 
+def miscellaneousLOCAL():
+    clear()
+    blogo()
+    if path['bitcoincli']:
+        n = "Local" if path['bitcoincli'] else "Remote"
+        bitcoincli = " getblockchaininfo"
+        a = os.popen(path['bitcoincli'] + bitcoincli).read()
+        b = json.loads(a)
+        d = b
+
+        lncli = " getinfo"
+        lsd = os.popen(lndconnectload['ln'] + lncli).read()
+        lsd0 = str(lsd)
+        alias = json.loads(lsd0)
+    else:
+        a = "Local" if path['bitcoincli'] else "Remote"
+        blk = rpc('getblockchaininfo')
+        d = blk
+
+        cert_path = lndconnectload["tls"]
+        macaroon = codecs.encode(open(lndconnectload["macaroon"], 'rb').read(), 'hex')
+        headers = {'Grpc-Metadata-macaroon': macaroon}
+        url = 'https://{}/v1/getinfo'.format(lndconnectload["ip_port"])
+        r = requests.get(url, headers=headers, verify=cert_path)
+        alias = r.json()
+    print("""\t\t
+    \033[1;37;40m{}\033[0;37;40m: \033[1;31;40mPyBLOCK\033[0;37;40m
+    \033[1;37;40mNode\033[0;37;40m: \033[1;33;40m{}\033[0;37;40m
+    \033[1;37;40mBlock\033[0;37;40m: \033[1;32;40m{}\033[0;37;40m
+    \033[1;37;40mVersion\033[0;37;40m: {}
+
+    \u001b[38;5;202mA.\033[0;37;40m FunB
+    \u001b[31;1mR.\033[0;37;40m Return
+    \n\n""".format(n if path['bitcoincli'] else a , alias['alias'], d['blocks'], version, checkupdate()))
+    miscellaneousLOCALmenu(input("\033[1;32;40mSelect option: \033[0;37;40m"))
 
 def runTheNumbersMenuConn():
     clear()
@@ -915,7 +941,7 @@ def mainmenuREMOTEcontrol(menuS): #Execution of the Main Menu options
                 remotegetblock()
                 tmp()
             except:
-                break
+                menuSelection()
     elif menuS in ["B", "b"]:
         bitcoincoremenuREMOTE()
     elif menuS in ["L", "l"]:
@@ -954,10 +980,6 @@ def mainmenuREMOTEcontrol(menuS): #Execution of the Main Menu options
         clear()
         t.sleep(3)
         screensv()
-    elif menuS in ["nym", "Nym", "NYM", "nYm", "nyM", "NYm", "NyM", "nYM"]:
-        clear()
-        blogo()
-        robotNym()
     elif menuS in ["wt", "WT", "Wt", "wT"]:
         clear()
         blogo()
@@ -969,7 +991,6 @@ def bitcoincoremenuREMOTEcontrol(bcore):
             try:
                 clear()
                 blogo()
-                sysinfo()
                 close()
                 remoteconsole()
                 t.sleep(5)
@@ -983,7 +1004,6 @@ def bitcoincoremenuREMOTEcontrol(bcore):
         try:
             clear()
             blogo()
-            sysinfo()
             close()
             decodeQR()
             input("Continue...")
@@ -1176,32 +1196,56 @@ def rateSXMenu(menuSX):
     elif menuSX in ["R", "r"]:
         menuSelection()
 
+def miscellaneousLOCALmenu(misce):
+    while True:
+        if misce in ["A", "a"]:
+            try:
+                clear()
+                blogo()
+                close()
+                logoA()
+                tmp()
+                clear()
+                blogo()
+                close()
+                logoB()
+                tmp()
+                clear()
+                blogo()
+                close()
+                logoC()
+                tmp()
+            except:
+                break
+        elif misce in ["R", "r"]:
+            menuSelection()
+
 #--------------------------------- End Main Menu execution --------------------------------
 
 settings = {"gradient":"", "design":"block", "colorA":"green", "colorB":"yellow"}
 settingsClock = {"gradient":"", "colorA":"green", "colorB":"yellow"}
 while True: # Loop
-    try:
-        clear()
-        path = {"ip_port":"", "rpcuser":"", "rpcpass":"", "bitcoincli":""}
+    #try:
+    clear()
+    path = {"ip_port":"", "rpcuser":"", "rpcpass":"", "bitcoincli":""}
 
-        if os.path.isfile('bclock.conf') or os.path.isfile('blnclock.conf'): # Check if the file 'bclock.conf' is in the same folder
-            pathv = pickle.load(open("bclock.conf", "rb")) # Load the file 'bclock.conf'
-            path = pathv # Copy the variable pathv to 'path'
-        else:
-            blogo()
-            print("Welcome to \033[1;31;40mPyBLOCK\033[0;37;40m\n\n")
-            print("\n\tIf you are going to use your local node leave IP:PORT/USER/PASSWORD in blank.\n")
-            path['ip_port'] = "http://{}".format(input("Insert IP:PORT to access your remote Bitcoin-Cli node: "))
-            path['rpcuser'] = input("RPC User: ")
-            path['rpcpass'] = input("RPC Password: ")
-            print("\n\tLocal Bitcoin Core Node connection.\n")
-            path['bitcoincli']= input("Insert the Path to Bitcoin-Cli: ")
-            pickle.dump(path, open("bclock.conf", "wb"))
+    if os.path.isfile('bclock.conf') or os.path.isfile('blnclock.conf'): # Check if the file 'bclock.conf' is in the same folder
+        pathv = pickle.load(open("bclock.conf", "rb")) # Load the file 'bclock.conf'
+        path = pathv # Copy the variable pathv to 'path'
+    else:
+        blogo()
+        print("Welcome to \033[1;31;40mPyBLOCK\033[0;37;40m\n\n")
+        print("\n\tIf you are going to use your local node leave IP:PORT/USER/PASSWORD in blank.\n")
+        path['ip_port'] = "http://{}".format(input("Insert IP:PORT to access your remote Bitcoin-Cli node: "))
+        path['rpcuser'] = input("RPC User: ")
+        path['rpcpass'] = input("RPC Password: ")
+        print("\n\tLocal Bitcoin Core Node connection.\n")
+        path['bitcoincli']= input("Insert the Path to Bitcoin-Cli: ")
+        pickle.dump(path, open("bclock.conf", "wb"))
 
-        menuSelection()
+    menuSelection()
 
 
-    except:
-        print("\n")
-        sys.exit(101)
+    #except:
+    #    print("\n")
+    #    sys.exit(101)

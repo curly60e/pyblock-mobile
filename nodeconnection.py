@@ -19,6 +19,8 @@ lndconnectload = {"ip_port":"", "tls":"", "macaroon":"", "ln":""}
 
 def clear(): # clear the screen
     os.system('cls' if os.name=='nt' else 'clear')
+def closed():
+    print("<<< Back Control + C.\n\n")
 
 if os.path.isfile('blndconnect.conf'): # Check if the file 'bclock.conf' is in the same folder
     lndconnectData= pickle.load(open("blndconnect.conf", "rb")) # Load the file 'bclock.conf'
@@ -50,37 +52,40 @@ def rpc(method, params=[]):
     return requests.post(path['ip_port'], auth=(path['rpcuser'], path['rpcpass']), data=payload).json()['result']
 
 def remoteHalving():
-    b = rpc('getblockcount')
-    c = str(b)
-    oneh = 0 - int(c) + 210000
-    twoh = 210000 - int(c) + 210000
-    thrh = 420000 - int(c) + 210000
-    forh = 630000 - int(c) + 210000
-    fifh = 840000 - int(c) + 210000
-    sixh = 1050000 - int(c) + 210000
-    sevh = 1260000 - int(c) + 210000
-    eith = 1470000 - int(c) + 210000
-    ninh = 1680000 - int(c) + 210000
-    tenh = 1890000 - int(c) + 210000
+    try:
+        b = rpc('getblockcount')
+        c = str(b)
+        oneh = 0 - int(c) + 210000
+        twoh = 210000 - int(c) + 210000
+        thrh = 420000 - int(c) + 210000
+        forh = 630000 - int(c) + 210000
+        fifh = 840000 - int(c) + 210000
+        sixh = 1050000 - int(c) + 210000
+        sevh = 1260000 - int(c) + 210000
+        eith = 1470000 - int(c) + 210000
+        ninh = 1680000 - int(c) + 210000
+        tenh = 1890000 - int(c) + 210000
 
-    q = """
-    \033[0;37;40m------------------- HALVING HISTORY -------------------
+        q = """
+        \033[0;37;40m------------------- HALVING HISTORY -------------------
 
-            1st  Halving: in {} Blocks {}
-            2nd  Halving: in {} Blocks {}
-            3rd  Halving: in {} Blocks {}
-            4th  Halving: in {} Blocks {}
-            5th  Halving: in {} Blocks {}
-            6th  Halving: in {} Blocks {}
-            7th  Halving: in {} Blocks {}
-            8th  Halving: in {} Blocks {}
-            9th  Halving: in {} Blocks {}
-            10th Halving: in {} Blocks {}
+                1st  Halving: in {} Blocks {}
+                2nd  Halving: in {} Blocks {}
+                3rd  Halving: in {} Blocks {}
+                4th  Halving: in {} Blocks {}
+                5th  Halving: in {} Blocks {}
+                6th  Halving: in {} Blocks {}
+                7th  Halving: in {} Blocks {}
+                8th  Halving: in {} Blocks {}
+                9th  Halving: in {} Blocks {}
+                10th Halving: in {} Blocks {}
 
-    -------------------------------------------------------
-    """.format("0" if int(c) == 210000 else oneh,"\033[1;32;40mCOMPLETE\033[0;37;40m","0" if int(c) == 420000 else twoh,"\033[1;32;40mCOMPLETE\033[0;37;40m", "0" if int(c) == 630000 else thrh,"\033[1;32;40mCOMPLETE\033[0;37;40m","0" if int(c) == 840000 else forh,"\033[1;32;40mCOMPLETE\033[0;37;40m" if int(c) >= 840000 else "\033[1;35;40mPENDING\033[0;37;40m", "0" if int(c) >= 1050000 else fifh , "\033[1;32;40mCOMPLETE\033[0;37;40m" if int(c) >= 1050000 else "\033[1;35;40mPENDING\033[0;37;40m", sixh, "\033[1;32;40mCOMPLETE\033[0;37;40m" if int(c) >= 1260000 else "\033[1;35;40mPENDING\033[0;37;40m", sevh,"\033[1;32;40mCOMPLETE\033[0;37;40m" if int(c) >= 1470000 else "\033[1;35;40mPENDING\033[0;37;40m", eith,"\033[1;32;40mCOMPLETE\033[0;37;40m" if int(c) >= 1680000 else "\033[1;35;40mPENDING\033[0;37;40m", ninh, "\033[1;32;40mCOMPLETE\033[0;37;40m" if int(c) >= 1890000 else "\033[1;35;40mPENDING\033[0;37;40m", tenh, "\033[1;32;40mCOMPLETE\033[0;37;40m" if int(c) >= 1890000 else "\033[1;35;40mPENDING\033[0;37;40m")
-    print(q)
-    input("\nContinue...")
+        -------------------------------------------------------
+        """.format("0" if int(c) == 210000 else oneh,"\033[1;32;40mCOMPLETE\033[0;37;40m","0" if int(c) == 420000 else twoh,"\033[1;32;40mCOMPLETE\033[0;37;40m", "0" if int(c) == 630000 else thrh,"\033[1;32;40mCOMPLETE\033[0;37;40m","0" if int(c) == 840000 else forh,"\033[1;32;40mCOMPLETE\033[0;37;40m" if int(c) >= 840000 else "\033[1;35;40mPENDING\033[0;37;40m", "0" if int(c) >= 1050000 else fifh , "\033[1;32;40mCOMPLETE\033[0;37;40m" if int(c) >= 1050000 else "\033[1;35;40mPENDING\033[0;37;40m", sixh, "\033[1;32;40mCOMPLETE\033[0;37;40m" if int(c) >= 1260000 else "\033[1;35;40mPENDING\033[0;37;40m", sevh,"\033[1;32;40mCOMPLETE\033[0;37;40m" if int(c) >= 1470000 else "\033[1;35;40mPENDING\033[0;37;40m", eith,"\033[1;32;40mCOMPLETE\033[0;37;40m" if int(c) >= 1680000 else "\033[1;35;40mPENDING\033[0;37;40m", ninh, "\033[1;32;40mCOMPLETE\033[0;37;40m" if int(c) >= 1890000 else "\033[1;35;40mPENDING\033[0;37;40m", tenh, "\033[1;32;40mCOMPLETE\033[0;37;40m" if int(c) >= 1890000 else "\033[1;35;40mPENDING\033[0;37;40m")
+        print(q)
+        input("\nContinue...")
+    except:
+        pass
 
 def remotegetblock():
     b = rpc('getblockcount')
@@ -110,29 +115,31 @@ def remotegetblock():
             break
 
 def remotegetblockcount(): # get access to bitcoin-cli with the command getblockcount
-    try:
-        a = rpc('getblockchaininfo')
-        d = a
-        print(d)
-        clear()
-        print("\033[1;32;40m")
-        blogo()
-        print("\033[0;37;40m")
-        print("<<< Back to the Main Menu Press Control + C.\n\n")
-        print("\n----------------------------------------------------------------------------------------------------")
-        print("""
-        \tGET BLOCKCHAIN INFORMATION
-        Chain: {}
-        Blocks: {}
-        Best BlockHash: {}
-        Difficulty: {}
-        Verification Progress: {}
-        Size on Disk: {}
-        Pruned: {}
-        """.format(d['chain'], d['blocks'], d['bestblockhash'], d['difficulty'], d['verificationprogress'], d['size_on_disk'], d['pruned']))
-        print("----------------------------------------------------------------------------------------------------\n")
-    except:
-        pass
+    while True:
+        try:
+            a = rpc('getblockchaininfo')
+            d = a
+            print(d)
+            clear()
+            print("\033[1;32;40m")
+            blogo()
+            print("\033[0;37;40m")
+            print("<<< Back Control + C.\n\n")
+            print("\n-----------------------------------------------------------------")
+            print("""
+            \tGET BLOCKCHAIN INFORMATION
+            Chain: {}
+            Blocks: {}
+            Best BlockHash: {}
+            Difficulty: {}
+            Verification Progress: {}
+            Size on Disk: {}
+            Pruned: {}
+            """.format(d['chain'], d['blocks'], d['bestblockhash'], d['difficulty'], d['verificationprogress'], d['size_on_disk'], d['pruned']))
+            print("-----------------------------------------------------------------\n")
+            t.sleep(5)
+        except:
+            break
 
 def remoteconsole(): # get into the console from bitcoin-cli
     print("\t\033[0;37;40mThis is \033[1;33;40mBitcoin-cli's \033[0;37;40mconsole. Type your respective commands you want to display.\n\n")
