@@ -1225,27 +1225,27 @@ def miscellaneousLOCALmenu(misce):
 settings = {"gradient":"", "design":"block", "colorA":"green", "colorB":"yellow"}
 settingsClock = {"gradient":"", "colorA":"green", "colorB":"yellow"}
 while True: # Loop
-    #try:
-    clear()
-    path = {"ip_port":"", "rpcuser":"", "rpcpass":"", "bitcoincli":""}
+    try:
+        clear()
+        path = {"ip_port":"", "rpcuser":"", "rpcpass":"", "bitcoincli":""}
 
-    if os.path.isfile('bclock.conf') or os.path.isfile('blnclock.conf'): # Check if the file 'bclock.conf' is in the same folder
-        pathv = pickle.load(open("bclock.conf", "rb")) # Load the file 'bclock.conf'
-        path = pathv # Copy the variable pathv to 'path'
-    else:
-        blogo()
-        print("Welcome to \033[1;31;40mPyBLOCK\033[0;37;40m\n\n")
-        print("\n\tIf you are going to use your local node leave IP:PORT/USER/PASSWORD in blank.\n")
-        path['ip_port'] = "http://{}".format(input("Insert IP:PORT to access your remote Bitcoin-Cli node: "))
-        path['rpcuser'] = input("RPC User: ")
-        path['rpcpass'] = input("RPC Password: ")
-        print("\n\tLocal Bitcoin Core Node connection.\n")
-        path['bitcoincli']= input("Insert the Path to Bitcoin-Cli: ")
-        pickle.dump(path, open("bclock.conf", "wb"))
+        if os.path.isfile('bclock.conf') or os.path.isfile('blnclock.conf'): # Check if the file 'bclock.conf' is in the same folder
+            pathv = pickle.load(open("bclock.conf", "rb")) # Load the file 'bclock.conf'
+            path = pathv # Copy the variable pathv to 'path'
+        else:
+            blogo()
+            print("Welcome to \033[1;31;40mPyBLOCK\033[0;37;40m\n\n")
+            print("\n\tIf you are going to use your local node leave IP:PORT/USER/PASSWORD in blank.\n")
+            path['ip_port'] = "http://{}".format(input("Insert IP:PORT to access your remote Bitcoin-Cli node: "))
+            path['rpcuser'] = input("RPC User: ")
+            path['rpcpass'] = input("RPC Password: ")
+            print("\n\tLocal Bitcoin Core Node connection.\n")
+            path['bitcoincli']= input("Insert the Path to Bitcoin-Cli: ")
+            pickle.dump(path, open("bclock.conf", "wb"))
 
-    menuSelection()
+        menuSelection()
 
 
-    #except:
-    #    print("\n")
-    #    sys.exit(101)
+    except:
+        print("\n")
+        sys.exit(101)
