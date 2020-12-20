@@ -119,14 +119,11 @@ def remotegetblockcount(): # get access to bitcoin-cli with the command getblock
         try:
             a = rpc('getblockchaininfo')
             d = a
-            print(d)
             clear()
-            print("\033[1;32;40m")
             blogo()
-            print("\033[0;37;40m")
-            print("<<< Back Control + C.\n\n")
-            print("\n-----------------------------------------------------------------")
+            closed()
             print("""
+            ----------------------------------------------------------------------------
             \tGET BLOCKCHAIN INFORMATION
             Chain: {}
             Blocks: {}
@@ -135,9 +132,9 @@ def remotegetblockcount(): # get access to bitcoin-cli with the command getblock
             Verification Progress: {}
             Size on Disk: {}
             Pruned: {}
+            ----------------------------------------------------------------------------
             """.format(d['chain'], d['blocks'], d['bestblockhash'], d['difficulty'], d['verificationprogress'], d['size_on_disk'], d['pruned']))
-            print("-----------------------------------------------------------------\n")
-            t.sleep(5)
+            t.sleep(2)
         except:
             break
 

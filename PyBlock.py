@@ -996,6 +996,7 @@ def bitcoincoremenuREMOTEcontrol(bcore):
                 t.sleep(5)
             except:
                 break
+                menuSelection()
     elif bcore in ["B", "b"]:
         remotegetblockcount()
     elif bcore in ["C", "c"]:
@@ -1008,7 +1009,7 @@ def bitcoincoremenuREMOTEcontrol(bcore):
             decodeQR()
             input("Continue...")
         except:
-            pass
+            menuSelection()
     elif bcore in ["E", "e"]:
         miscellaneousLOCAL()
 
