@@ -1,6 +1,6 @@
 #Developer: Curly60e
 #PyBLOCK its a clock of the Bitcoin blockchain.
-
+#Version: 0.6.0b
 
 import base64, codecs, json, requests
 import pickle
@@ -14,12 +14,8 @@ import numpy as np
 from cfonts import render, say
 from art import *
 from pblogo import *
-from PIL import Image
-from robohash import Robohash
-
 
 lndconnectload = {"ip_port":"", "tls":"", "macaroon":"", "ln":""}
-settingsClock = {"gradient":"", "design":"", "colorA":"", "colorB":""}
 
 def clear(): # clear the screen
     os.system('cls' if os.name=='nt' else 'clear')
@@ -56,64 +52,69 @@ def rpc(method, params=[]):
     return requests.post(path['ip_port'], auth=(path['rpcuser'], path['rpcpass']), data=payload).json()['result']
 
 def remoteHalving():
-    b = rpc('getblockcount')
-    c = str(b)
-    oneh = 0 - int(c) + 210000
-    twoh = 210000 - int(c) + 210000
-    thrh = 420000 - int(c) + 210000
-    forh = 630000 - int(c) + 210000
-    fifh = 840000 - int(c) + 210000
-    sixh = 1050000 - int(c) + 210000
-    sevh = 1260000 - int(c) + 210000
-    eith = 1470000 - int(c) + 210000
-    ninh = 1680000 - int(c) + 210000
-    tenh = 1890000 - int(c) + 210000
-
-    q = """
-    \033[0;37;40m------------------- HALVING HISTORY -------------------
-
-            1st  Halving: in {} Blocks {}
-            2nd  Halving: in {} Blocks {}
-            3rd  Halving: in {} Blocks {}
-            4th  Halving: in {} Blocks {}
-            5th  Halving: in {} Blocks {}
-            6th  Halving: in {} Blocks {}
-            7th  Halving: in {} Blocks {}
-            8th  Halving: in {} Blocks {}
-            9th  Halving: in {} Blocks {}
-            10th Halving: in {} Blocks {}
-
-    -------------------------------------------------------
-    """.format("0" if int(c) == 210000 else oneh,"\033[1;32;40mCOMPLETE\033[0;37;40m","0" if int(c) == 420000 else twoh,"\033[1;32;40mCOMPLETE\033[0;37;40m", "0" if int(c) == 630000 else thrh,"\033[1;32;40mCOMPLETE\033[0;37;40m","0" if int(c) == 840000 else forh,"\033[1;32;40mCOMPLETE\033[0;37;40m" if int(c) >= 840000 else "\033[1;35;40mPENDING\033[0;37;40m", "0" if int(c) >= 1050000 else fifh , "\033[1;32;40mCOMPLETE\033[0;37;40m" if int(c) >= 1050000 else "\033[1;35;40mPENDING\033[0;37;40m", sixh, "\033[1;32;40mCOMPLETE\033[0;37;40m" if int(c) >= 1260000 else "\033[1;35;40mPENDING\033[0;37;40m", sevh,"\033[1;32;40mCOMPLETE\033[0;37;40m" if int(c) >= 1470000 else "\033[1;35;40mPENDING\033[0;37;40m", eith,"\033[1;32;40mCOMPLETE\033[0;37;40m" if int(c) >= 1680000 else "\033[1;35;40mPENDING\033[0;37;40m", ninh, "\033[1;32;40mCOMPLETE\033[0;37;40m" if int(c) >= 1890000 else "\033[1;35;40mPENDING\033[0;37;40m", tenh, "\033[1;32;40mCOMPLETE\033[0;37;40m" if int(c) >= 1890000 else "\033[1;35;40mPENDING\033[0;37;40m")
-    print(q)
-    input("\nContinue...")
-
-
-def remotegetblock():
-    b = rpc('getblockcount')
-    c = str(b)
-    a = c
-    while True:
-        if os.path.isfile('pyblocksettingsClock.conf') or os.path.isfile('pyblocksettingsClock.conf'): # Check if the file 'bclock.conf' is in the same folder
-            settingsv = pickle.load(open("pyblocksettingsClock.conf", "rb")) # Load the file 'bclock.conf'
-            settingsClock = settingsv # Copy the variable pathv to 'path'
-        else:
-            settingsClock = {"gradient":"", "design":"block", "colorA":"green", "colorB":"yellow"}
-            pickle.dump(settingsClock, open("pyblocksettingsClock.conf", "wb"))
+    try:
         b = rpc('getblockcount')
         c = str(b)
-        if c > a:
-            output = render(str(c), colors=[settingsClock['colorA'], settingsClock['colorB']], align='center')
-            print("\a" + output)
-            t.sleep(10)
-            break
-        elif c == a:
-            output = render(str(c), colors=[settingsClock['colorA'], settingsClock['colorB']], align='center')
-            print(output)
-            t.sleep(10)
+        oneh = 0 - int(c) + 210000
+        twoh = 210000 - int(c) + 210000
+        thrh = 420000 - int(c) + 210000
+        forh = 630000 - int(c) + 210000
+        fifh = 840000 - int(c) + 210000
+        sixh = 1050000 - int(c) + 210000
+        sevh = 1260000 - int(c) + 210000
+        eith = 1470000 - int(c) + 210000
+        ninh = 1680000 - int(c) + 210000
+        tenh = 1890000 - int(c) + 210000
+
+        q = """
+        \033[0;37;40m----------- HALVING HISTORY -----------
+
+        1st  Halving: in {} Blocks {}
+        2nd  Halving: in {} Blocks {}
+        3rd  Halving: in {} Blocks {}
+        4th  Halving: in {} Blocks {}
+        5th  Halving: in {} Blocks {}
+        6th  Halving: in {} Blocks {}
+        7th  Halving: in {} Blocks {}
+        8th  Halving: in {} Blocks {}
+        9th  Halving: in {} Blocks {}
+        10th Halving: in {} Blocks {}
+
+        ---------------------------------------
+        """.format("0" if int(c) == 210000 else oneh,"\033[1;32;40mCOMPLETE\033[0;37;40m","0" if int(c) == 420000 else twoh,"\033[1;32;40mCOMPLETE\033[0;37;40m", "0" if int(c) == 630000 else thrh,"\033[1;32;40mCOMPLETE\033[0;37;40m","0" if int(c) == 840000 else forh,"\033[1;32;40mCOMPLETE\033[0;37;40m" if int(c) >= 840000 else "\033[1;35;40mPENDING\033[0;37;40m", "0" if int(c) >= 1050000 else fifh , "\033[1;32;40mCOMPLETE\033[0;37;40m" if int(c) >= 1050000 else "\033[1;35;40mPENDING\033[0;37;40m", sixh, "\033[1;32;40mCOMPLETE\033[0;37;40m" if int(c) >= 1260000 else "\033[1;35;40mPENDING\033[0;37;40m", sevh,"\033[1;32;40mCOMPLETE\033[0;37;40m" if int(c) >= 1470000 else "\033[1;35;40mPENDING\033[0;37;40m", eith,"\033[1;32;40mCOMPLETE\033[0;37;40m" if int(c) >= 1680000 else "\033[1;35;40mPENDING\033[0;37;40m", ninh, "\033[1;32;40mCOMPLETE\033[0;37;40m" if int(c) >= 1890000 else "\033[1;35;40mPENDING\033[0;37;40m", tenh, "\033[1;32;40mCOMPLETE\033[0;37;40m" if int(c) >= 1890000 else "\033[1;35;40mPENDING\033[0;37;40m")
+        print(q)
+        input("\nContinue...")
+    except:
+        pass
+
+def remotegetblock():
+    while True:
+        try:
+            b = rpc('getblockcount')
+            c = str(b)
+            a = c
             clear()
             closed()
-        else:
+            if os.path.isfile('pyblocksettingsClock.conf') or os.path.isfile('pyblocksettingsClock.conf'): # Check if the file 'bclock.conf' is in the same folder
+                settingsv = pickle.load(open("pyblocksettingsClock.conf", "rb")) # Load the file 'bclock.conf'
+                settingsClock = settingsv # Copy the variable pathv to 'path'
+            else:
+                settingsClock = {"gradient":"", "design":"block", "colorA":"green", "colorB":"yellow"}
+                pickle.dump(settingsClock, open("pyblocksettingsClock.conf", "wb"))
+            b = rpc('getblockcount')
+            c = str(b)
+            if c > a:
+                output = render(str(c), colors=[settingsClock['colorA'], settingsClock['colorB']], align='center')
+                print("\a" + output)
+                t.sleep(10)
+                break
+            elif c == a:
+                output = render(str(c), colors=[settingsClock['colorA'], settingsClock['colorB']], align='center')
+                print(output)
+                t.sleep(10)
+            else:
+                break
+        except:
             break
 
 def remotegetblockcount(): # get access to bitcoin-cli with the command getblockcount
@@ -125,7 +126,7 @@ def remotegetblockcount(): # get access to bitcoin-cli with the command getblock
             blogo()
             closed()
             print("""
-            ----------------------------------------------------------------------------
+            -------------------------------------------------------
             \tGET BLOCKCHAIN INFORMATION
             Chain: {}
             Blocks: {}
@@ -134,7 +135,7 @@ def remotegetblockcount(): # get access to bitcoin-cli with the command getblock
             Verification Progress: {}
             Size on Disk: {}
             Pruned: {}
-            ----------------------------------------------------------------------------
+            -------------------------------------------------------
             """.format(d['chain'], d['blocks'], d['bestblockhash'], d['difficulty'], d['verificationprogress'], d['size_on_disk'], d['pruned']))
             t.sleep(2)
         except:
@@ -147,15 +148,6 @@ def remoteconsole(): # get into the console from bitcoin-cli
         a = rpc(cle)
         print(a)
 
-def runthenumbersConn():
-    try:
-        b = rpc('gettxoutsetinfo')
-        c = str(b)
-        print(c)
-        input("\nContinue...")
-    except:
-        pass
-
 #-------------------------END RPC BITCOIN NODE CONNECTION
 
 def consoleLN(): # get into the console from bitcoin-cli
@@ -167,121 +159,6 @@ def consoleLN(): # get into the console from bitcoin-cli
         lsd1 = str(lsd0)
         print(lsd1)
         lsd.close()
-
-def locallistpeersQQ():
-    qr = qrcode.QRCode(
-    version=1,
-    error_correction=qrcode.constants.ERROR_CORRECT_L,
-    box_size=10,
-    border=4,
-    )
-    while True:
-        clear()
-        print("\033[1;32;40m")
-        blogo()
-        print("\033[0;37;40m")
-        print("<<< Back to the Main Menu Press Control + C.\n\n")
-        lncli = " listpeers"
-        lsd = os.popen(lndconnectload['ln'] + lncli).read()
-        lsd0 = str(lsd)
-        d = json.loads(lsd0)
-        n = d['peers']
-        try:
-            print("\n\tLIST PEERS\n")
-            for item_ in n:
-                s = item_
-                hash = s['pub_key']
-                rh = Robohash(hash)
-                rh.assemble(roboset='set1')
-                with open(hash +".png", "wb") as f:
-                	rh.img.save(f, format="png")
-
-                img_path = open(hash +".png", "rb")
-                img = Image.open(img_path)
-
-                h = 2
-                w = int((img.width / img.height) * 5)
-
-                img = img.resize((w,h), Image.ANTIALIAS)
-                img_arr = np.asarray(img)
-                h,w,c = img_arr.shape
-
-                for x in range(h):
-                    for y in range(w):
-                        pix = img_arr[x][y]
-                        print(get_color(pix[0], pix[1], pix[2]), sep='', end='')
-                    print()
-                print("PubKey: " + s['pub_key'] + " @" + s['address'])
-
-            nd = input("\nSelect PubKey: ")
-            for item in n:
-                s = item
-                nn = s['pub_key']
-                if nd == nn:
-                    hash = s['pub_key']
-                    rh = Robohash(hash)
-                    rh.assemble(roboset='set1')
-
-                    img_path = open(hash +".png", "rb")
-                    img = Image.open(img_path)
-
-                    h = 20
-                    w = int((img.width / img.height) * 50)
-
-                    img = img.resize((w,h), Image.ANTIALIAS)
-                    img_arr = np.asarray(img)
-                    h,w,c = img_arr.shape
-
-                    for x in range(h):
-                        for y in range(w):
-                            pix = img_arr[x][y]
-                            print(get_color(pix[0], pix[1], pix[2]), sep='', end='')
-                        print()
-                    print("\n----------------------------------------------------------------------------------------------------")
-                    print("""
-                        PEER DECODED\n
-                        Bytes Sent: {}
-                        Bytes Recv: {}
-                        Sat Sent: {} sats
-                        Sat Recv: {} sats
-                    """.format(s['bytes_sent'], s['bytes_recv'], s['sat_sent'], s['sat_recv']))
-                    print("-----------------------------------------------------------------------------------------------------\n")
-                    print("\n\tPeer: " + nd)
-                    print("\033[1;30;47m")
-                    qr.add_data(s['pub_key'])
-                    qr.print_ascii()
-                    print("\033[0;37;40m")
-                    qr.clear()
-
-            pp = input("\nDo you want to disconnect? Y/n: ")
-            if pp in ["Y", "y"]:
-                lncli = " disconnect"
-                lsd = os.popen(lndconnectload['ln'] + lncli + " " + nd).read()
-                lsd0 = str(lsd)
-                d = json.loads(lsd0)
-                print("\n\tDisconnected from peer " + nd)
-                input("\nContinue... ")
-            elif pp in ["N", "n"]:
-                input("\nContinue... ")
-        except:
-            break
-
-def localconnectpeer():
-    try:
-        clear()
-        print("\033[1;32;40m")
-        blogo()
-        print("\033[0;37;40m")
-        print("<<< Back to the Main Menu Press Control + C.\n\n")
-        print("\n\tCONNECT TO NEW PEER\n")
-        a = input("Insert PeerID@IP:PORT: ")
-        lncli = " connect "
-        lsd = os.popen(lndconnectload['ln'] + lncli + a).read()
-        lsd0 = str(lsd)
-        print(lsd0)
-        input("\nContinue... ")
-    except:
-        pass
 
 def locallistchaintxns():
     qr = qrcode.QRCode(
@@ -315,7 +192,7 @@ def locallistchaintxns():
                 nn = s['tx_hash']
                 trx = s['dest_addresses']
                 if nd == nn:
-                    print("\n----------------------------------------------------------------------------------------------------")
+                    print("\n--------------------------------------------------")
                     print("""
                     \nONCHAIN TRANSACTION DECODED
                     Amount: {} sats
@@ -325,7 +202,7 @@ def locallistchaintxns():
                     Confirmations: {}
                     Destination: {}
                     """.format(s['amount'], s['tx_hash'], s['block_hash'], s['block_height'], s['num_confirmations'], trx))
-                    print("-----------------------------------------------------------------------------------------------------\n")
+                    print("---------------------------------------------------\n")
                     print("\nTransaction Hash")
                     print("\033[1;30;47m")
                     qr.add_data(s['tx_hash'])
@@ -403,27 +280,6 @@ def locallistchannels():
             print("\n\tLIST CHANNELS\n")
             for item_ in n:
                 s = item_
-                hash = s['remote_pubkey']
-                rh = Robohash(hash)
-                rh.assemble(roboset='set1')
-                with open(hash +".png", "wb") as f:
-                	rh.img.save(f, format="png")
-
-                img_path = open(hash +".png", "rb")
-                img = Image.open(img_path)
-
-                h = 2
-                w = int((img.width / img.height) * 5)
-
-                img = img.resize((w,h), Image.ANTIALIAS)
-                img_arr = np.asarray(img)
-                h,w,c = img_arr.shape
-
-                for x in range(h):
-                    for y in range(w):
-                        pix = img_arr[x][y]
-                        print(get_color(pix[0], pix[1], pix[2]), sep='', end='')
-                    print()
                 print("Node ID: " + s['remote_pubkey'])
 
             nd = input("\nSelect a Node ID: ")
@@ -431,25 +287,6 @@ def locallistchannels():
                 s = item
                 nn = s['remote_pubkey']
                 if nd == nn:
-                    hash = s['remote_pubkey']
-                    rh = Robohash(hash)
-                    rh.assemble(roboset='set1')
-
-                    img_path = open(hash +".png", "rb")
-                    img = Image.open(img_path)
-
-                    h = 20
-                    w = int((img.width / img.height) * 50)
-
-                    img = img.resize((w,h), Image.ANTIALIAS)
-                    img_arr = np.asarray(img)
-                    h,w,c = img_arr.shape
-
-                    for x in range(h):
-                        for y in range(w):
-                            pix = img_arr[x][y]
-                            print(get_color(pix[0], pix[1], pix[2]), sep='', end='')
-                        print()
                     print("\n----------------------------------------------------------------------------------------------------")
                     print("""
                     \tCHANNEL DECODED
@@ -469,41 +306,13 @@ def locallistchannels():
             break
 
 def localgetinfo():
-    qr = qrcode.QRCode(
-    version=1,
-    error_correction=qrcode.constants.ERROR_CORRECT_L,
-    box_size=10,
-    border=4,
-    )
     lncli = " getinfo"
     lsd = os.popen(lndconnectload['ln'] + lncli).read()
     lsd0 = str(lsd)
     d = json.loads(lsd0)
-    hash = d['identity_pubkey']
-    rh = Robohash(hash)
-    rh.assemble(roboset='set1')
-    with open(hash +".png", "wb") as f:
-    	rh.img.save(f, format="png")
-
-    img_path = open(hash +".png", "rb")
-    img = Image.open(img_path)
-
-    h = 20
-    w = int((img.width / img.height) * 50)
-
-    img = img.resize((w,h), Image.ANTIALIAS)
-    img_arr = np.asarray(img)
-    h,w,c = img_arr.shape
-
-    for x in range(h):
-        for y in range(w):
-            pix = img_arr[x][y]
-            print(get_color(pix[0], pix[1], pix[2]), sep='', end='')
-        print()
     print("\n----------------------------------------------------------------------------------------------------")
     print("""
     \tNODE INFORMATION
-
     Version: {}
     Node ID: {}
     Alias: {}
@@ -514,11 +323,6 @@ def localgetinfo():
     Peers: {}
     URLS: {}
     """.format(d['version'], d['identity_pubkey'], d['alias'], d['color'], d['num_pending_channels'], d['num_active_channels'], d['num_inactive_channels'], d['num_peers'], d['uris']))
-    print("\033[1;30;47m")
-    qr.add_data(d['identity_pubkey'])
-    qr.print_ascii()
-    print("\033[0;37;40m")
-    qr.clear()
     print("----------------------------------------------------------------------------------------------------\n")
     input("\nContinue... ")
 
@@ -614,8 +418,7 @@ def localgetnetworkinfo():
 
 def localkeysend():
     try:
-        closed()
-        print("\n\tYou ar going to send a payment using KeySend - Note: You don't need any invoice, just your peer ID.\n")
+        print("\n\tYou ar going to send a payment using KeySend - Note: You don't need any invoice, just your peer ID.")
         lncli = " sendpayment "
         node = input("Send to NodeID: ")
         amount = input("Amount in sats: ")
@@ -633,16 +436,13 @@ def localchannelbalance():
     lsd = os.popen(lndconnectload['ln'] + lncli).read()
     lsd0 = str(lsd)
     d = json.loads(lsd0)
+    print("\n----------------------------------------------------------------------------------------------------")
     print("""
-    ---------------------------------------------------------
-
     \tLOCAL CHANNEL BALANCE
-
     Balance: {} sats
     Pending Channels: {} sats
-
-    ---------------------------------------------------------
     """.format(d['balance'], d['pending_open_balance']))
+    print("----------------------------------------------------------------------------------------------------\n")
     input("\nContinue... ")
 
 def localnewaddress():
@@ -676,42 +476,6 @@ def localbalanceOC():
     print("Unconfirmed Balance: " + d['unconfirmed_balance'] + " sats")
     print("----------------------------------------------------------------------------------------------------\n")
     input("\nContinue... ")
-
-
-def localrebalancelnd():
-    lncli = " listchannels"
-    while True:
-        lsd = os.popen(lndconnectload['ln'] + lncli).read()
-        lsd0 = str(lsd)
-        d = json.loads(lsd0)
-        n = d['channels']
-        clear()
-        print("\033[1;32;40m")
-        blogo()
-        print("\033[0;37;40m")
-        print("<<< Back to the Main Menu Press Control + C.\n\n")
-        print("\t\nChannels\n")
-        try:
-            print("""\n\tLIST CHANNELS TO REBALANCE\n
-                                 \t\033[1;32;40mLOCAL\033[0;37;40m BALANCE \t\033[1;31;40mREMOTE\033[0;37;40m BALANCE
-            """)
-
-            for item in n:
-                s = item
-                if int(s['local_balance']) >= int(s['remote_balance']):
-                    total = int(s['local_balance']) - int(s['remote_balance'])
-                elif int(s['local_balance']) <= int(s['remote_balance']):
-                    total = int(s['remote_balance']) - int(s['local_balance'])
-                print("Node ID: " + str(s['chan_id']) + "\t\033[1;32;40m " + str(s['local_balance']) + "\033[0;37;40m sats \033[1;31;40m\t" + str(s['remote_balance']) + "\033[0;37;40m sats \033[3;33;40m" + "\tDIFFERENCE: {}\033[0;37;40m sats".format(str(total)) )
-            fromnode = input("\nSelect FROM a Node ID : ")
-            tonode = input("\nSelect TO a Node ID : ")
-            amt = input("\nAmount in sats: ")
-            fee = input("\nMax Fee factor in sats: ")
-            fromtonode = "python3 rebalance.py -f {} -t {} -a {} --max-fee-factor {}".format(fromnode,tonode,amt,fee)
-            os.system(str(fromtonode))
-            input("Continue...")
-        except:
-            break
 
 # Remote connection with rest -------------------------------------
 
@@ -906,74 +670,30 @@ def listinvoice():
     input("\nContinue... ")
 
 def getinfo():
-    qr = qrcode.QRCode(
-    version=1,
-    error_correction=qrcode.constants.ERROR_CORRECT_L,
-    box_size=10,
-    border=4,
-    )
-    cert_path = lndconnectload["tls"]
-    macaroon = codecs.encode(open(lndconnectload["macaroon"], 'rb').read(), 'hex')
-    headers = {'Grpc-Metadata-macaroon': macaroon}
-    url = 'https://{}/v1/getinfo'.format(lndconnectload["ip_port"])
-    r = requests.get(url, headers=headers, verify=cert_path)
-    a = r.json()
-    hash = a['identity_pubkey']
-    rh = Robohash(hash)
-    rh.assemble(roboset='set1')
-    with open(hash +".png", "wb") as f:
-    	rh.img.save(f, format="png")
-
-    img_path = open(hash +".png", "rb")
-    img = Image.open(img_path)
-
-    h = 20
-    w = int((img.width / img.height) * 50)
-
-    img = img.resize((w,h), Image.ANTIALIAS)
-    img_arr = np.asarray(img)
-    h,w,c = img_arr.shape
-
-    for x in range(h):
-        for y in range(w):
-            pix = img_arr[x][y]
-            print(get_color(pix[0], pix[1], pix[2]), sep='', end='')
-        print()
-    print("\n----------------------------------------------------------------------------------------------------")
-    print("""
-    \t NODE INFORMATION
-    Version: {}
-    Node ID: {}
-    Alias: {}
-    Color: {}
-    Pending Channels: {}
-    Active Channels: {}
-    Inactive Channels: {}
-    Peers: {}
-    URLS: {}
-    """.format(a['version'], a['identity_pubkey'], a['alias'], a['color'], a['num_pending_channels'], a['num_active_channels'], a['num_inactive_channels'], a['num_peers'], a['uris']))
-    print("\033[1;30;47m")
-    qr.add_data(a['identity_pubkey'])
-    qr.print_ascii()
-    print("\033[0;37;40m")
-    qr.clear()
-    print("----------------------------------------------------------------------------------------------------\n")
-    input("\nContinue... ")
-
-#--------------------------------- NYMs -----------------------------------
-
-def get_ansi_color_code(r, g, b):
-    if r == g and g == b:
-        if r < 8:
-            return 16
-        if r > 248:
-            return 231
-        return round(((r - 8) / 247) * 24) + 232
-    return 16 + (36 * round(r / 255 * 5)) + (6 * round(g / 255 * 5)) + round(b / 255 * 5)
-
-
-def get_color(r, g, b):
-    return "\x1b[48;5;{}m \x1b[0m".format(int(get_ansi_color_code(r,g,b)))
+    try:
+        cert_path = lndconnectload["tls"]
+        macaroon = codecs.encode(open(lndconnectload["macaroon"], 'rb').read(), 'hex')
+        headers = {'Grpc-Metadata-macaroon': macaroon}
+        url = 'https://{}/v1/getinfo'.format(lndconnectload["ip_port"])
+        r = requests.get(url, headers=headers, verify=cert_path)
+        a = r.json()
+        print("\n----------------------------------------------------------------------------------------------------")
+        print("""
+        \t NODE INFORMATION
+        Version: {}
+        Node ID: {}
+        Alias: {}
+        Color: {}
+        Pending Channels: {}
+        Active Channels: {}
+        Inactive Channels: {}
+        Peers: {}
+        URLS: {}
+        """.format(a['version'], a['identity_pubkey'], a['alias'], a['color'], a['num_pending_channels'], a['num_active_channels'], a['num_inactive_channels'], a['num_peers'], a['uris']))
+        print("----------------------------------------------------------------------------------------------------\n")
+        input("\nContinue... ")
+    except:
+        pass
 
 def channels():
     cert_path = lndconnectload["tls"]
@@ -994,27 +714,6 @@ def channels():
             print("\n\tLIST CHANNELS\n")
             for r in range(len(n)):
                 s = n[r]
-                hash = s['remote_pubkey']
-                rh = Robohash(hash)
-                rh.assemble(roboset='set1')
-                with open(hash +".png" , "wb") as f:
-                	rh.img.save(f, format="png")
-
-                img_path = open(hash +".png" , "rb")
-                img = Image.open(img_path)
-
-                h = 2
-                w = int((img.width / img.height) * 5)
-
-                img = img.resize((w,h), Image.ANTIALIAS)
-                img_arr = np.asarray(img)
-                h,w,c = img_arr.shape
-
-                for x in range(h):
-                    for y in range(w):
-                        pix = img_arr[x][y]
-                        print(get_color(pix[0], pix[1], pix[2]), sep='', end='')
-                    print()
                 print("Node ID: " + s['remote_pubkey'])
 
             nd = input("\nSelect a Node ID: ")
@@ -1022,25 +721,6 @@ def channels():
                 s = item
                 nn = s['remote_pubkey']
                 if nd == nn:
-                    hash = s['remote_pubkey']
-                    rh = Robohash(hash)
-                    rh.assemble(roboset='set1')
-
-                    img_path = open(hash +".png" , "rb")
-                    img = Image.open(img_path)
-
-                    h = 20
-                    w = int((img.width / img.height) * 50)
-
-                    img = img.resize((w,h), Image.ANTIALIAS)
-                    img_arr = np.asarray(img)
-                    h,w,c = img_arr.shape
-
-                    for x in range(h):
-                        for y in range(w):
-                            pix = img_arr[x][y]
-                            print(get_color(pix[0], pix[1], pix[2]), sep='', end='')
-                        print()
                     print("\n----------------------------------------------------------------------------------------------------")
                     print("""
                     \tCHANNEL DECODED
@@ -1066,16 +746,13 @@ def channelbalance():
     url = 'https://{}/v1/balance/channels'.format(lndconnectload["ip_port"])
     r = requests.get(url, headers=headers, verify=cert_path)
     a = r.json()
+    print("\n----------------------------------------------------------------------------------------------------")
     print("""
-    ---------------------------------------------------------
-
     \tLOCAL CHANNEL BALANCE
-
     Balance: {} sats
     Pending Channels: {} sats
-
-    ---------------------------------------------------------
     """.format(a['balance'], a['pending_open_balance']))
+    print("----------------------------------------------------------------------------------------------------\n")
     input("\nContinue... ")
 
 def listonchaintxs():
