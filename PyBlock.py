@@ -27,7 +27,7 @@ from termcolor import colored, cprint
 from nodeconnection import *
 
 
-version = "0.9.3"
+version = "0.9.4"
 
 def rpc(method, params=[]):
     payload = json.dumps({
