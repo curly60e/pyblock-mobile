@@ -134,7 +134,7 @@ def menuUserConn(): #Menu before connection over ssh
     \u001b[38;5;40mP.\033[0;37;40m Platforms
     \u001b[38;5;15mX.\033[0;37;40m Donate
     \u001b[38;5;93mQ.\033[0;37;40m Exit
-    \n\n""".format(a, alias['alias'], d['blocks'], version, checkupdate()))
+    \n\n\x1b[?25h""".format(a, alias['alias'], d['blocks'], version, checkupdate()))
     mainmenuREMOTEcontrol(input("\033[1;32;40mSelect option: \033[0;37;40m"))
 
 def bitcoincoremenuREMOTE():
@@ -163,7 +163,7 @@ def bitcoincoremenuREMOTE():
     \u001b[38;5;202mD.\033[0;37;40m Show QR from a Bitcoin Address
     \u001b[38;5;202mE.\033[0;37;40m Miscellaneous
     \u001b[33;1mR.\033[0;37;40m Return
-    \n\n""".format(a, alias['alias'], d['blocks'], version, checkupdate()))
+    \n\n\x1b[?25h""".format(a, alias['alias'], d['blocks'], version, checkupdate()))
     bitcoincoremenuREMOTEcontrol(input("\033[1;32;40mSelect option: \033[0;37;40m"))
 
 def lightningnetworkREMOTE():
@@ -196,7 +196,7 @@ def lightningnetworkREMOTE():
     \u001b[33;1mH.\033[0;37;40m List Onchain Transactions
     \u001b[33;1mI.\033[0;37;40m Get Node Info
     \u001b[31;1mR.\033[0;37;40m Return
-    \n\n""".format(a, alias['alias'], d['blocks'], version, checkupdate()))
+    \n\n\x1b[?25h""".format(a, alias['alias'], d['blocks'], version, checkupdate()))
     lightningnetworkREMOTEcontrol(input("\033[1;32;40mSelect option: \033[0;37;40m"))
 
 def miscellaneousLOCAL():
@@ -232,7 +232,7 @@ def miscellaneousLOCAL():
 
     \u001b[38;5;202mA.\033[0;37;40m FunB
     \u001b[31;1mR.\033[0;37;40m Return
-    \n\n""".format(n if path['bitcoincli'] else a , alias['alias'], d['blocks'], version, checkupdate()))
+    \n\n\x1b[?25h""".format(n if path['bitcoincli'] else a , alias['alias'], d['blocks'], version, checkupdate()))
     miscellaneousLOCALmenu(input("\033[1;32;40mSelect option: \033[0;37;40m"))
 
 def runTheNumbersMenuConn():
@@ -270,7 +270,7 @@ def runTheNumbersMenuConn():
     \033[1;32;40mB.\033[0;37;40m Countdown Halving
     \033[1;32;40mC.\033[0;37;40m Audit
     \u001b[31;1mR.\033[0;37;40m Return
-    \n\n""".format(n if path['bitcoincli'] else a , alias['alias'], d['blocks'], version, checkupdate()))
+    \n\n\x1b[?25h""".format(n if path['bitcoincli'] else a , alias['alias'], d['blocks'], version, checkupdate()))
     runTheNumbersControlConn(input("\033[1;32;40mSelect option: \033[0;37;40m"))
 
 def weatherMenu():
@@ -307,7 +307,7 @@ def weatherMenu():
     \033[1;32;40mA.\033[0;37;40m Version 1
     \033[1;32;40mB.\033[0;37;40m Version 2
     \u001b[31;1mR.\033[0;37;40m Return
-    \n\n""".format(n if path['bitcoincli'] else a , alias['alias'], d['blocks'], version, checkupdate()))
+    \n\n\x1b[?25h""".format(n if path['bitcoincli'] else a , alias['alias'], d['blocks'], version, checkupdate()))
     menuWeather(input("\033[1;32;40mSelect option: \033[0;37;40m"))
 
 def dnt(): # Donation selection menu
@@ -344,7 +344,7 @@ def dnt(): # Donation selection menu
     \u001b[38;5;15mA.\033[0;37;40m Developers Donation
     \u001b[38;5;15mB.\033[0;37;40m Testers Donation
     \u001b[31;1mR.\033[0;37;40m Return
-    \n\n""".format(n if path['bitcoincli'] else a , alias['alias'], d['blocks'], version, checkupdate()))
+    \n\n\x1b[?25h""".format(n if path['bitcoincli'] else a , alias['alias'], d['blocks'], version, checkupdate()))
     menuC(input("\033[1;32;40mSelect option: \033[0;37;40m"))
 
 def dntDev(): # Dev Donation Menu
@@ -381,7 +381,7 @@ def dntDev(): # Dev Donation Menu
     \u001b[38;5;202mA.\033[0;37;40m Bitcoin Address
     \u001b[33;1mB.\033[0;37;40m Lightning Network
     \u001b[31;1mR.\033[0;37;40m Return
-    \n\n""".format(n if path['bitcoincli'] else a , alias['alias'], d['blocks'], version, checkupdate()))
+    \n\n\x1b[?25h""".format(n if path['bitcoincli'] else a , alias['alias'], d['blocks'], version, checkupdate()))
     menuE(input("\033[1;32;40mSelect option: \033[0;37;40m"))
 
 def dntTst(): # Tester Donation Menu
@@ -418,7 +418,7 @@ def dntTst(): # Tester Donation Menu
     \u001b[38;5;202mA.\033[0;37;40m Bitcoin Address
     \u001b[33;1mB.\033[0;37;40m Lightning Network
     \u001b[31;1mR.\033[0;37;40m Return
-    \n\n""".format(n if path['bitcoincli'] else a , alias['alias'], d['blocks'], version, checkupdate()))
+    \n\n\x1b[?25h""".format(n if path['bitcoincli'] else a , alias['alias'], d['blocks'], version, checkupdate()))
     menuF(input("\033[1;32;40mSelect option: \033[0;37;40m"))
 
 def APIMenuLOCAL():
@@ -465,7 +465,7 @@ def APIMenuLOCAL():
     \033[1;32;40mK.\033[0;37;40m Weather    FREE
     \033[1;32;40mL.\033[0;37;40m Arcade     FREE
     \u001b[31;1mR.\033[0;37;40m Return
-    \n\n""".format(n if path['bitcoincli'] else a , alias['alias'], d['blocks'], version, checkupdate(),lnbitspaid = "PAID" if os.path.isfile("lnbitSN.conf") else "PREMIUM", lnpaypaid = "PAID" if os.path.isfile("lnpaySN.conf") else "PREMIUM", opennodepaid = "PAID" if os.path.isfile("opennodeSN.conf") else "PREMIUM"))
+    \n\n\x1b[?25h""".format(n if path['bitcoincli'] else a , alias['alias'], d['blocks'], version, checkupdate(),lnbitspaid = "PAID" if os.path.isfile("lnbitSN.conf") else "PREMIUM", lnpaypaid = "PAID" if os.path.isfile("lnpaySN.conf") else "PREMIUM", opennodepaid = "PAID" if os.path.isfile("opennodeSN.conf") else "PREMIUM"))
     platfformsLOCALcontrol(input("\033[1;32;40mSelect option: \033[0;37;40m"))
 
 def satnodeMenu(): # Satnode Menu
@@ -504,7 +504,7 @@ def satnodeMenu(): # Satnode Menu
     \033[1;32;40mC.\033[0;37;40m Setup
     \033[1;34;40mS.\033[0;37;40m Send a Message to Space
     \u001b[31;1mR.\033[0;37;40m Return
-    \n\n""".format(n if path['bitcoincli'] else a , alias['alias'], d['blocks'], version, checkupdate()))
+    \n\n\x1b[?25h""".format(n if path['bitcoincli'] else a , alias['alias'], d['blocks'], version, checkupdate()))
     menuD(input("\033[1;32;40mSelect option: \033[0;37;40m"))
 
 def rateSX():
@@ -541,7 +541,7 @@ def rateSX():
     \033[1;32;40mA.\033[0;37;40m Rate
     \033[1;32;40mB.\033[0;37;40m Chart
     \u001b[31;1mR.\033[0;37;40m Return
-    \n\n""".format(n if path['bitcoincli'] else a , alias['alias'], d['blocks'], version, checkupdate()))
+    \n\n\x1b[?25h""".format(n if path['bitcoincli'] else a , alias['alias'], d['blocks'], version, checkupdate()))
     rateSXMenu(input("\033[1;32;40mSelect option: \033[0;37;40m"))
 
 def mempoolmenu():
@@ -578,7 +578,7 @@ def mempoolmenu():
     \033[1;32;40mA.\033[0;37;40m Blocks
     \033[1;32;40mB.\033[0;37;40m Recommended Fee
     \u001b[31;1mR.\033[0;37;40m Return
-    \n\n""".format(n if path['bitcoincli'] else a , alias['alias'], d['blocks'], version, checkupdate()))
+    \n\n\x1b[?25h""".format(n if path['bitcoincli'] else a , alias['alias'], d['blocks'], version, checkupdate()))
     mempoolmenuS(input("\033[1;32;40mSelect option: \033[0;37;40m"))
 
 def menuSelection():
@@ -638,16 +638,17 @@ def aaccPPiLNBits():
                 nn = str(rsh)
                 dd = json.loads(nn)
                 db = dd['paid']
-                if db is not True:
+                if db is True:
+                    clear()
+                    blogo()
+                    tick()
+                    bitLN['pd'] = "PAID"
+                    pickle.dump(bitLN, open("lnbitSN.conf", "wb"))
+                    createFileConnLNBits()
+                    break
+                else:
                     continue
 
-                clear()
-                blogo()
-                tick()
-                bitLN['pd'] = "PAID"
-                pickle.dump(bitLN, open("lnbitSN.conf", "wb"))
-                createFileConnLNBits()
-                break
     except:
         clear()
         blogo()
@@ -693,16 +694,17 @@ def aaccPPiLNPay():
                 nn = str(rsh)
                 dd = json.loads(nn)
                 db = dd['paid']
-                if db is not True:
+                if db is True:
+                    clear()
+                    blogo()
+                    tick()
+                    bitLN['pd'] = "PAID"
+                    pickle.dump(bitLN, open("lnpaySN.conf", "wb"))
+                    createFileConnLNPay()
+                    break
+                else:
                     continue
 
-                clear()
-                blogo()
-                tick()
-                bitLN['pd'] = "PAID"
-                pickle.dump(bitLN, open("lnpaySN.conf", "wb"))
-                createFileConnLNPay()
-                break
     except:
         clear()
         blogo()
@@ -748,16 +750,17 @@ def aaccPPiOpenNode():
                 nn = str(rsh)
                 dd = json.loads(nn)
                 db = dd['paid']
-                if db is not True:
+                if db is True:
+                    clear()
+                    blogo()
+                    tick()
+                    bitLN['pd'] = "PAID"
+                    pickle.dump(bitLN, open("opennodeSN.conf", "wb"))
+                    createFileConnOpenNode()
+                    break
+                else:
                     continue
 
-                clear()
-                blogo()
-                tick()
-                bitLN['pd'] = "PAID"
-                pickle.dump(bitLN, open("opennodeSN.conf", "wb"))
-                createFileConnOpenNode()
-                break
     except:
         clear()
         blogo()
