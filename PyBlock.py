@@ -5,7 +5,6 @@ import os
 import os.path
 import time as t
 import pickle
-import psutil
 import qrcode
 import random
 import xmltodict
