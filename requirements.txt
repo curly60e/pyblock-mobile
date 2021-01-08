@@ -5,7 +5,6 @@
 art
 qrcode
 requests
-psutil
 simplejson
 certifi
 chardet
